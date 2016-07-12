@@ -1,12 +1,12 @@
 package com.example.alikabiri.mpandgbluetooth.activity;
 
-import android.app.ActionBar;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
+import android.support.v7.app.AppCompatDelegate;
 import android.view.MenuItem;
 
 import com.example.alikabiri.mpandgbluetooth.R;
@@ -14,6 +14,7 @@ import com.example.alikabiri.mpandgbluetooth.R;
 public final class SettingsActivity extends PreferenceActivity
         implements SharedPreferences.OnSharedPreferenceChangeListener {
 
+    private AppCompatDelegate mDelegate;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -21,10 +22,9 @@ public final class SettingsActivity extends PreferenceActivity
         //noinspection deprecation
         addPreferencesFromResource(R.xml.settings_activity);
 
-        final ActionBar bar = getActionBar();
-        assert bar != null;
-        bar.setHomeButtonEnabled(true);
-        bar.setDisplayHomeAsUpEnabled(true);
+        //noinspection ConstantConditions
+        getDelegate().getSupportActionBar().setHomeButtonEnabled(true);
+        getDelegate().getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         prefs.registerOnSharedPreferenceChangeListener(this);
@@ -64,5 +64,12 @@ public final class SettingsActivity extends PreferenceActivity
             final String title = ((ListPreference) preference).getEntry().toString();
             preference.setTitle(title);
         }
+    }
+
+    private AppCompatDelegate getDelegate() {
+        if (mDelegate == null) {
+            mDelegate = AppCompatDelegate.create(this, null);
+        }
+        return mDelegate;
     }
 }

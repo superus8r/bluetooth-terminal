@@ -296,24 +296,24 @@ public final class DeviceControlActivity extends BaseActivity {
     public void sendCommand(View view) {
         if (commandEditText != null) {
             String commandString = commandEditText.getText().toString();
-            if (commandString.isEmpty()) return;
-
-            // Дополнение команд в hex
-            if (hexMode && (commandString.length() % 2 == 1)) {
-                commandString = "0" + commandString;
-                commandEditText.setText(commandString);
-            }
-            byte[] command = (hexMode ? Utils.toHex(commandString) : commandString.getBytes());
-            if (command_ending != null) command = Utils.concat(command, command_ending.getBytes());
-            if (isConnected()) {
-                connector.write(command);
-                appendLog(commandString, hexMode, true, needClean);
-            }
-
+//            if (commandString.isEmpty()) return;
+//
+//            // Дополнение команд в hex
+//            if (hexMode && (commandString.length() % 2 == 1)) {
+//                commandString = "0" + commandString;
+//                commandEditText.setText(commandString);
+//            }
+//            byte[] command = (hexMode ? Utils.toHex(commandString) : commandString.getBytes());
+//            if (command_ending != null) command = Utils.concat(command, command_ending.getBytes());
 //            if (isConnected()) {
-//                connector.write(commandString.getBytes());
+//                connector.write(command);
 //                appendLog(commandString, hexMode, true, needClean);
 //            }
+
+            if (isConnected()) {
+                connector.write(commandString.getBytes());
+                appendLog(commandString, hexMode, true, needClean);
+            }
         }
     }
 
