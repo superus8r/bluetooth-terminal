@@ -15,7 +15,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:paddingLeft="@dimen/dialog_header_padding"
+    android:paddingRight="@dimen/dialog_header_padding">
 
     <TextView
         android:id="@+id/title_paired_devices"
@@ -24,8 +26,9 @@
         android:text="@string/title_paired_devices"
         android:visibility="gone"
         android:textColor="@color/primary_text"
-        android:paddingLeft="5dp"
-        android:paddingRight="5dp"/>
+        android:paddingTop="@dimen/dialog_header_padding"
+        android:paddingBottom="@dimen/dialog_header_padding_bottom"
+        android:textSize="@dimen/dialog_header_text_size"/>
 
     <ListView
         android:id="@+id/paired_devices"
@@ -34,16 +37,23 @@
         android:stackFromBottom="true"
         android:layout_weight="1" />
 
+    <Button
+        android:id="@+id/button_scan"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dialog_header_padding"
+        android:layout_marginBottom="@dimen/dialog_header_padding"
+        android:text="@string/search_message" />
+
     <TextView
         android:id="@+id/title_new_devices"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/title_other_devices"
         android:visibility="gone"
-        android:background="#666"
-        android:textColor="#fff"
         android:paddingLeft="5dp"
-        android:paddingRight="5dp"/>
+        android:paddingRight="5dp"
+        android:paddingTop="16dp"/>
 
     <ListView
         android:id="@+id/new_devices"
@@ -51,10 +61,4 @@
         android:layout_height="wrap_content"
         android:stackFromBottom="true"
         android:layout_weight="2" />
-
-    <Button
-        android:id="@+id/button_scan"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/search_message" />
 </LinearLayout>
