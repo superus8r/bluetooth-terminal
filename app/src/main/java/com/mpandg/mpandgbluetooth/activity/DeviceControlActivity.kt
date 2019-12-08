@@ -273,7 +273,7 @@ class DeviceControlActivity : BaseActivity() {
             val arrow = if (outgoing) " << " else " >> "
             msg.append(arrow)
         } else msg.append(" ")
-        msg.append(if (hexMode) Utils.printHex(message) else message)
+        msg.append(if (hexMode) message?.let { Utils.printHex(it) } else message)
         if (outgoing) msg.append('\n')
         logTextView?.let {
             it.append(msg)
