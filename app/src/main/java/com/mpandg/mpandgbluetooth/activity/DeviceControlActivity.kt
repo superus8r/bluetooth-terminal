@@ -223,7 +223,13 @@ class DeviceControlActivity : BaseActivity() {
         stopConnection()
         try {
             val emptyName = getString(R.string.empty_device_name)
-            val data = DeviceData(connectedDevice, emptyName)
+            val data = DeviceData(
+                    device = connectedDevice,
+                    emptyName = emptyName,
+                    name = null,
+                    address = null,
+                    deviceClass = null,
+                    majorDeviceClass = null)
             connector = mHandler?.let { DeviceConnector(data, it) }
             connector?.connect()
         } catch (e: IllegalArgumentException) {

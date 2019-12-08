@@ -45,7 +45,7 @@ class DeviceConnector(deviceData: DeviceData, private val mHandler: Handler) {
             }
         }
         if (mConnectedThread != null) {
-            mConnectedThread!!.cancel()
+            mConnectedThread?.cancel()
             mConnectedThread = null
         }
         // Start the thread to connect with the given device
@@ -136,7 +136,7 @@ class DeviceConnector(deviceData: DeviceData, private val mHandler: Handler) {
      * connect to bluetooth device
      */
     private inner class ConnectThread internal constructor(device: BluetoothDevice?) : Thread() {
-        private val mmSocket: BluetoothSocket? = createRfcommSocket(device!!)
+        private val mmSocket: BluetoothSocket? = device?.let { createRfcommSocket(device) }
         /**
          * basic method for device connection.
          * if the connection was successful, the control will be transferred to the other thread.
@@ -183,11 +183,11 @@ class DeviceConnector(deviceData: DeviceData, private val mHandler: Handler) {
             val readMessage = StringBuilder()
             while (true) {
                 try { // read the incoming data from stream and append in a response line.
-                    bytes = mmInStream!!.read(buffer)
-                    val readed = String(buffer, 0, bytes)
-                    readMessage.append(readed)
+                    bytes = mmInStream?.read(buffer) ?: 0
+                    val doneReading = String(buffer, 0, bytes)
+                    readMessage.append(doneReading)
                     // indicate end of the message and return an answer to main stream.
-                    if (readed.contains("\n")) {
+                    if (doneReading.contains("\n")) {
                         mHandler.obtainMessage(BaseActivity.MESSAGE_READ, bytes, -1, readMessage.toString()).sendToTarget()
                         readMessage.setLength(0)
                     }
@@ -258,7 +258,7 @@ class DeviceConnector(deviceData: DeviceData, private val mHandler: Handler) {
 
     init {
         connectedDevice = btAdapter.getRemoteDevice(deviceData.address)
-        deviceName = if (deviceData.name == null) deviceData.address else deviceData.name
+        deviceName = deviceData.name ?: deviceData.address ?: throw Error("device name not available!")
         mState = STATE_NONE
     }
 }
