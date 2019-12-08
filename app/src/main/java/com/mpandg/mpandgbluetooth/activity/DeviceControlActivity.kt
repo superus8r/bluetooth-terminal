@@ -224,7 +224,7 @@ class DeviceControlActivity : BaseActivity() {
         try {
             val emptyName = getString(R.string.empty_device_name)
             val data = DeviceData(connectedDevice, emptyName)
-            connector = DeviceConnector(data, mHandler)
+            connector = mHandler?.let { DeviceConnector(data, it) }
             connector?.connect()
         } catch (e: IllegalArgumentException) {
             Utils.log("setupConnector failed: " + e.message)
