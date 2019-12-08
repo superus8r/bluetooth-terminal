@@ -77,7 +77,7 @@ public class Utils {
     /**
      * get preferences.
      */
-    public static String getPrefence(Context context, String item) {
+    public static String getPreference(Context context, String item) {
         final SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
         return settings.getString(item, Const.TAG);
     }
@@ -86,7 +86,7 @@ public class Utils {
     /**
      * getting a boolean flag from the settings.
      */
-    public static boolean getBooleanPrefence(Context context, String tag) {
+    public static boolean getBooleanPreference(Context context, String tag) {
         final SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
         return settings.getBoolean(tag, true);
     }

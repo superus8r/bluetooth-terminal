@@ -18,7 +18,9 @@
             android:layout_height="wrap_content"
             android:layout_weight="4"
             android:hint="@string/command_hint"
-            android:imeOptions="actionSend" />
+            android:imeOptions="actionSend"
+            android:importantForAutofill="no"
+            android:inputType="text" />
 
         <Button
             android:id="@+id/send_button"
